@@ -1,0 +1,44 @@
+@
+cabin
+```  ``` //**Kaneshon Cabin** //A wooden cabin made from Red Pine, with mahogany flooring. There are two bunkbeds adjacent to each other with a table in the middle housing some recently potted carnations- as well as a bunkbed to the farthest wall. There are four chairs made also from mahogany, with plush white cushions on the seat. The bunkbeds all have the same sheets and blankets. The sheets are all white, except for the pillows which have a light grey color to them with a fluffy white throw next to it. There are two windows on either side of the entrance, the main door, and a simple fireplace to the farthest of the bed room living room, on the opposite wall from the entrance. //There's a bathroom that has a two sink area, with a large mirror spanning across the wall. There aren't any real commodities other than some travel sized soap and shampoo, tossed haphazardly in a basket next to some cheap white towels. Thankfully, the sink area is cut off from the shower and toilet by a door/wall, so anyone can come in and wash their hands without bothering whoever is currently showering or using the shitter. //`[ Note : The list below is not all that can be investigated but serves as a starting point for investigations. ]`//```  ```
+Fireplace,Bathroom Locks,Cabin Door,Windows,Get the comically large key,Unlock the gigantic clown door that you just noticed{key=True}
+@
+cabin/Fireplace
+`It's a brick fireplace with a pot and kettle that you can put into it and cook with, there's also some tools for cleaning out the fireplace if need be. It's been cleaned spotless recently.`
+Look up the Fireplace
+@
+cabin/Fireplace/Look up the Fireplace
+`The chimney of the fireplace looks standard. There's nothing there other than brick.`
+@
+cabin/Bathroom Locks
+`It's possible to lock the door from the inside by turning a knob under the doorknob. It can be unlocked with a key, it looks like.`
+Check out the Shower/Toilet Door Lock
+@
+cabin/Bathroom Locks/Check out the Shower/Toilet Door Lock
+`It's the same as the bathroom door- you can lock the door from the inside by turning a knob under the doorknob. It can also be unlocked with a key from the outside.`
+@
+cabin/Cabin Door
+`...There isn't any visible lock, but it does resemble that of a hotel door. It can be unlocked with the CA:RE device. The cabin is currently registered to - ` <@&742876017357750312> **`Requires Moderator Assistance for Door Access List!`** 
+Attempt to use your CA:RE Device on the door
+@
+cabin/Cabin Door/Attempt to use your CA:RE Device on the door
+<@&742876017357750312> **`Requires Moderator Assistance!`** 
+@
+cabin/Windows
+`It's made of some strong glass- it won't shatter easily.`  
+Check for a window lock,Attempt to shatter the glass
+@
+cabin/Windows/Attempt to shatter the glass
+`... It just doesn't work. Sturdy material of all places.`
+@
+cabin/Windows/Check for a window lock
+`There's a standard turn lock on the window that lets you lock it in place or unlock it to freely open the window. A screen divider seperates the glass from the outside, and the divider has it's own lock as well.`
+@
+cabin/Get the comically large key
+!SET key=True
+`You put the key into your bag.`
+@
+cabin/Unlock the gigantic clown door that you just noticed
+!SET key=False
+`Wait, fuck! I totally missed that the first time around. There's a big ass clown door, like red and yellow type shit.`//`You unlock that shit and leave.`
+@
