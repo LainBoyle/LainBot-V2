@@ -6,7 +6,7 @@ from session import Session
 import re
 
 
-DISCORD_TOKEN = "MTM2NzYwMjI1MTk0MTY3OTI2NA.GJ6blt.xbOJYY41h5tKQY5_64L_SmQD9dHBBMrnKgMHBQ"
+DISCORD_TOKEN = "You gotta get your own token, man. You can't use mine."
 
 bot = commands.Bot(command_prefix="!",case_insensitive=True, intents = discord.Intents.all())
 
