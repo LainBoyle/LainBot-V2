@@ -4,13 +4,14 @@ from discord.ext import commands
 import os 
 from session import Session
 import re
-
+from bigram import *
 
 DISCORD_TOKEN = "You gotta get your own token, man. You can't use mine."
 
 bot = commands.Bot(command_prefix="!",case_insensitive=True, intents = discord.Intents.all())
 
 mySessions = []
+model : GPTLanguageModel
 
 
 def checkSessions(member):
@@ -32,6 +33,15 @@ async def on_ready():
 @bot.command()
 async def hello(ctx):
     await ctx.send("HEYYY GIRLLLLLLL")
+
+@bot.command()
+async def loadGPT(ctx):
+    model.load_state_dict(torch.load('gpt_model.pth'))
+    model.eval()  # Set the model to evaluation mode
+    context = torch.zeros((1, 1), dtype=torch.long, device=device)
+    print(context)
+    print(decode(m.generate(context, max_new_tokens=500)[0].tolist()))
+
     
 @bot.command()
 async def add(ctx, *arr):
