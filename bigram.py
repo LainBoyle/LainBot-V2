@@ -197,7 +197,6 @@ class GPTLanguageModel(nn.Module):
         return idx
 
 model = GPTLanguageModel()
-m = model.to(device)
 # print the number of parameters in the model
 #print(sum(p.numel() for p in m.parameters())/1e6, 'M parameters')
 
@@ -227,8 +226,13 @@ m = model.to(device)
 
 
 # later, when you want to use the model again
-#model.load_state_dict(torch.load('gpt_model.pth'))
-#model.eval()  # Set the model to evaluation mode
+model.load_state_dict(torch.load('gpt_model.pth'))
+model.eval()  # Set the model to evaluation mode
+m = model.to(device)
 
-context = torch.zeros((1, 1), dtype=torch.long, device=device)
-print(decode(m.generate(context, max_new_tokens=500)[0].tolist()))
+context = torch.tensor(encode("||elainatime||"), dtype=torch.long, device=device).unsqueeze(0)
+#context = torch.zeros((1, 1), dtype=torch.long, device=device)
+print(context)
+outString = decode(m.generate(context, max_new_tokens=500)[0].tolist())
+output = outString.split("\n")[0]
+print(output)

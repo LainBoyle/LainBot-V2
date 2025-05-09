@@ -6,12 +6,35 @@ from session import Session
 import re
 from bigram import *
 
-DISCORD_TOKEN = "You gotta get your own token, man. You can't use mine."
+DISCORD_TOKEN = os.environ["DISCORD_TOKEN"]
 
 bot = commands.Bot(command_prefix="!",case_insensitive=True, intents = discord.Intents.all())
 
 mySessions = []
 model : GPTLanguageModel
+
+#NN stuff
+torch.manual_seed(1337)
+
+# wget https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt
+with open('training.txt', 'r', encoding='utf-8') as f:
+    text = f.read()
+
+# here are all the unique characters that occur in this text
+chars = sorted(list(set(text)))
+vocab_size = len(chars)
+# create a mapping from characters to integers
+stoi = { ch:i for i,ch in enumerate(chars) }
+itos = { i:ch for i,ch in enumerate(chars) }
+encode = lambda s: [stoi[c] for c in s] # encoder: take a string, output a list of integers
+decode = lambda l: ''.join([itos[i] for i in l]) # decoder: take a list of integers, output a string
+
+model = GPTLanguageModel()
+model.load_state_dict(torch.load('gpt_model.pth'))
+model.eval()  # Set the model to evaluation mode
+m = model.to(device)
+
+#NN stuff over
 
 
 def checkSessions(member):
@@ -20,8 +43,13 @@ def checkSessions(member):
             return i
     return None
 
+def handleGenReq(target):
+    context = torch.tensor(encode(f"||{str(target)}||"), dtype=torch.long, device=device).unsqueeze(0)
+    outString = decode(m.generate(context, max_new_tokens=500)[0].tolist())
+    string = outString.split("||")[2]
+    output = f"**{str(target)}:** {string}"
 
-
+    return output
 
     
 
@@ -36,11 +64,11 @@ async def hello(ctx):
 
 @bot.command()
 async def loadGPT(ctx):
+    print("Loading GPT model")
     model.load_state_dict(torch.load('gpt_model.pth'))
     model.eval()  # Set the model to evaluation mode
-    context = torch.zeros((1, 1), dtype=torch.long, device=device)
-    print(context)
-    print(decode(m.generate(context, max_new_tokens=500)[0].tolist()))
+    print("Done")
+
 
     
 @bot.command()
@@ -68,7 +96,11 @@ async def investigate(ctx):
         await ctx.send(curInvestigation)
     
     
-    
+@bot.command()
+async def generate(ctx, member: discord.Member = None):
+    if member == None: member = ctx.author
+    print(str(member.name))
+    await ctx.send(handleGenReq(member.name))
     
     
 @bot.command()
