@@ -97,8 +97,9 @@ async def investigate(ctx):
         await ctx.send(curInvestigation)
     
     
-# @bot.command()
-# async def generate(ctx, member: discord.Member = None):
+@bot.command()
+async def generate(ctx, member: discord.Member = None):
+    await ctx.send("Sorry, generative functionality is temporarily offline.")
 #     if member == None: member = ctx.author
 #     print(str(member.name))
 #     await ctx.send(handleGenReq(member.name))
