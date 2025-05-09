@@ -14,25 +14,26 @@ mySessions = []
 model : GPTLanguageModel
 
 #NN stuff
-torch.manual_seed(1337)
+#torch.manual_seed(1337)
 
 # wget https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt
-with open('training.txt', 'r', encoding='utf-8') as f:
-    text = f.read()
+# with open('training.txt', 'r', encoding='utf-8') as f:
+#     text = f.read()
 
 # here are all the unique characters that occur in this text
-chars = sorted(list(set(text)))
-vocab_size = len(chars)
-# create a mapping from characters to integers
-stoi = { ch:i for i,ch in enumerate(chars) }
-itos = { i:ch for i,ch in enumerate(chars) }
-encode = lambda s: [stoi[c] for c in s] # encoder: take a string, output a list of integers
-decode = lambda l: ''.join([itos[i] for i in l]) # decoder: take a list of integers, output a string
+# chars = sorted(list(set(text)))
+# vocab_size = len(chars)
 
-model = GPTLanguageModel()
-model.load_state_dict(torch.load('gpt_model.pth'))
-model.eval()  # Set the model to evaluation mode
-m = model.to(device)
+# # create a mapping from characters to integers
+# stoi = { ch:i for i,ch in enumerate(chars) }
+# itos = { i:ch for i,ch in enumerate(chars) }
+# encode = lambda s: [stoi[c] for c in s] # encoder: take a string, output a list of integers
+# decode = lambda l: ''.join([itos[i] for i in l]) # decoder: take a list of integers, output a string
+
+# model = GPTLanguageModel()
+# model.load_state_dict(torch.load('gpt_model.pth'))
+# model.eval()  # Set the model to evaluation mode
+# m = model.to(device)
 
 #NN stuff over
 
@@ -96,11 +97,11 @@ async def investigate(ctx):
         await ctx.send(curInvestigation)
     
     
-@bot.command()
-async def generate(ctx, member: discord.Member = None):
-    if member == None: member = ctx.author
-    print(str(member.name))
-    await ctx.send(handleGenReq(member.name))
+# @bot.command()
+# async def generate(ctx, member: discord.Member = None):
+#     if member == None: member = ctx.author
+#     print(str(member.name))
+#     await ctx.send(handleGenReq(member.name))
     
     
 @bot.command()
@@ -127,7 +128,7 @@ async def harvest(ctx, *args):
     file = open(str(thisChannel) + ".txt", "x")
     async for message in thisChannel.history(limit=10000, oldest_first=False):
         if str(message.author) in whitelist:
-            file.write("||" + str(message.author) + "||" + re.sub(r'[^\x00-\x7f]',r'', str(message.content)) + "\n")
+            file.write("{" + str(message.author) + ":" + re.sub(r'[^\x00-\x7f]',r'', str(message.content)) + "}\n")
     file.close()
     await ctx.send("Done.")
     
