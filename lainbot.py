@@ -4,14 +4,14 @@ from discord.ext import commands
 import os 
 from session import Session
 import re
-from bigram import *
+#from bigram import *
 
 DISCORD_TOKEN = os.environ["DISCORD_TOKEN"]
 
 bot = commands.Bot(command_prefix="!",case_insensitive=True, intents = discord.Intents.all())
 
 mySessions = []
-model : GPTLanguageModel
+#model : GPTLanguageModel
 
 #NN stuff
 #torch.manual_seed(1337)
@@ -44,13 +44,13 @@ def checkSessions(member):
             return i
     return None
 
-def handleGenReq(target):
-    context = torch.tensor(encode(f"||{str(target)}||"), dtype=torch.long, device=device).unsqueeze(0)
-    outString = decode(m.generate(context, max_new_tokens=500)[0].tolist())
-    string = outString.split("||")[2]
-    output = f"**{str(target)}:** {string}"
+# def handleGenReq(target):
+#     context = torch.tensor(encode(f"||{str(target)}||"), dtype=torch.long, device=device).unsqueeze(0)
+#     outString = decode(m.generate(context, max_new_tokens=500)[0].tolist())
+#     string = outString.split("||")[2]
+#     output = f"**{str(target)}:** {string}"
 
-    return output
+#     return output
 
     
 
@@ -63,12 +63,12 @@ async def on_ready():
 async def hello(ctx):
     await ctx.send("HEYYY GIRLLLLLLL")
 
-@bot.command()
-async def loadGPT(ctx):
-    print("Loading GPT model")
-    model.load_state_dict(torch.load('gpt_model.pth'))
-    model.eval()  # Set the model to evaluation mode
-    print("Done")
+# @bot.command()
+# async def loadGPT(ctx):
+#     print("Loading GPT model")
+#     model.load_state_dict(torch.load('gpt_model.pth'))
+#     model.eval()  # Set the model to evaluation mode
+#     print("Done")
 
 
     
